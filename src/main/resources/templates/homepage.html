@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>HomePage</title>
+</head>
+<body>
+    <div class="container">
+        <form th:action="@{/homepage}">
+            <h2>Hi <span th:utext="${username}"></span>, welcome to the homepage!</h2>
+        </form>
+        <br/>
+        <a class="dropdown-item" th:href="@{/logout}">Log Out</a>
+    </div>
+</body>
+</html>

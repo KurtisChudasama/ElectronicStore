@@ -24,6 +24,13 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private Cart cart;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private Set<UserOrder> orders;
+
     public int getId() {
         return id;
     }
@@ -62,5 +69,21 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Set<UserOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<UserOrder> orders) {
+        this.orders = orders;
     }
 }

@@ -36,18 +36,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(bCryptPasswordEncoder);
     }
 
-    /*@Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/home/**").hasAuthority("USER").anyRequest()
+                .antMatchers("/homepage/**").hasAuthority("CUSTOMER").anyRequest()
                 .authenticated()
                 .and().csrf().disable()
                 .formLogin().loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/homepage")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout()
@@ -57,7 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60*60)
                 .and().exceptionHandling().accessDeniedPage("/access_denied");
-    }*/
+    }
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
