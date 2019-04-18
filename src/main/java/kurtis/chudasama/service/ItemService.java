@@ -18,7 +18,7 @@ public class ItemService implements IItemService{
         return itemRepository.findById(id);
     }
 
-    @Override
+    /*@Override
     public Item findByCartId(int cartId) {
         return itemRepository.findByCartId(cartId);
     }
@@ -36,7 +36,7 @@ public class ItemService implements IItemService{
     @Override
     public ArrayList<Item> findItemsByOrderId(int orderId) {
         return itemRepository.findItemsByOrderId(orderId);
-    }
+    }*/
 
     @Override
     public void saveItem(Item item) {

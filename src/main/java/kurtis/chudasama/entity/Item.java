@@ -14,9 +14,11 @@ public class Item {
     @Column(name = "item_name")
     private String itemName;
 
-    private Set<Cart> carts;
-//TODO these need to be looked at
+    @ManyToMany(mappedBy = "items")
     private Set<UserOrder> orders;
+
+    @ManyToMany(mappedBy = "items")
+    private Set<Cart> carts;
 
     public Item() {
 
