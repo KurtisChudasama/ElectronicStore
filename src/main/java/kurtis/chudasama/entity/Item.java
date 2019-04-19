@@ -14,18 +14,25 @@ public class Item {
     @Column(name = "item_name")
     private String itemName;
 
+    @Column(name = "category")
+    private String category;
+
+    @Column(name = "stock")
+    private int stock;
+
     @ManyToMany(mappedBy = "items")
     private Set<UserOrder> orders;
 
-    @ManyToMany(mappedBy = "items")
-    private Set<Cart> carts;
+    @OneToMany(mappedBy = "item")
+    private Set<CartItems> cartItems;
 
     public Item() {
 
     }
 
-    public Item(String itemName) {
+    public Item(String itemName, String category) {
         this.itemName = itemName;
+        this.category = category;
     }
 
     public int getId() {
@@ -44,12 +51,20 @@ public class Item {
         this.itemName = itemName;
     }
 
-    public Set<Cart> getCarts() {
+    /*public Set<Cart> getCarts() {
         return carts;
     }
 
     public void setCarts(Set<Cart> carts) {
         this.carts = carts;
+    }*/
+
+    public Set<CartItems> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(Set<CartItems> cartItems) {
+        this.cartItems = cartItems;
     }
 
     public Set<UserOrder> getOrders() {
@@ -59,4 +74,21 @@ public class Item {
     public void setOrders(Set<UserOrder> orders) {
         this.orders = orders;
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
 }

@@ -1,6 +1,6 @@
 <header th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/home">Electronic Store</a>
+        <a class="navbar-brand" href="/homepage">Electronic Store</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,8 +10,15 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/homepage">Home<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
-                    <a class="nav-link" href="#">Admin<span class="sr-only">(current)</span></a>
+                <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin </a>
+                    <div class="dropdown-menu" x-placement="bottom-start">
+                        <a class="dropdown-item" href="/homepage/additem">Add Items</a>
+                        <a class="dropdown-item" href="/homepage/viewitems">View Items</a>
+                    </div>
+                </li>
+                <li class="nav-item" sec:authorize="hasAuthority('CUSTOMER')">
+                    <a class="nav-link" href="/homepage/viewitems">Products</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account </a>
@@ -20,6 +27,9 @@
                     </div>
                 </li>
             </ul>
+            <div class="nav-item" sec:authorize="hasAuthority('CUSTOMER')">
+                <a class="nav-link" href="/homepage/viewcart"><span><i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="color:#373a3c;"></i></span></a>
+            </div>
         </div>
     </nav>
 </header>

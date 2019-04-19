@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/starter_layout}">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
 <body>
-    <div class="card text-white bg-success mb-3 mx-auto " style="max-width: 25rem; margin-top: 6rem;">
+<section layout:fragment="content">
+    <div class="card text-white bg-primary mb-3 mx-auto " style="max-width: 25rem; margin-top: 6rem;">
         <div class="card-body">
             <div class="container">
                 <div class="alert" id="alert-details-error" role="alert" th:if="${param.error}" style="color: #fff; background-color: #FF7851; border-color: #343a40;">
@@ -21,11 +23,12 @@
                         <label class="col-form-label" for="password">Password</label>
                         <input type="password" class="form-control" placeholder="Password" id="password" name="password" required autofocus>
                     </div>
-                    <button class="btn btn-lg btn-dark btn-block" type="submit">Sign In</button>
+                    <button class="btn btn-lg btn-secondary btn-block" type="submit">Sign In</button>
                     <div class="margin-top20 text-center">Don't have an account? <a class="text-dark" th:href="@{/register}">Register here</a></div>
                 </form>
             </div>
         </div>
     </div>
+</section>
 </body>
 </html>

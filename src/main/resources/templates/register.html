@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/starter_layout}">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
 </head>
 <body>
-    <div class="card text-white bg-success mb-3 mx-auto" style="max-width: 25rem; margin-top: 6rem;">
+<section layout:fragment="content">
+    <div class="card text-white bg-primary mb-3 mx-auto" style="max-width: 25rem; margin-top: 6rem;">
         <div class="card-header">Enter your details below</div>
         <div class="card-body">
             <div class="container">
                 <form class="form-horizontal" role="form" modelAttribute="user" method="POST" th:action="@{/register}" th:object="${user}">
-                    <div class="alert alert-info" id="alert-register-success" role="alert" th:if="${successMessage}">
+                    <div class="alert alert-success" id="alert-register-success" role="alert" th:if="${successMessage}">
                         Congrats, Registered successfully!
                         <script>
                             $("#alert-register-success").fadeTo(5000, 500).slideUp(500, function(){
@@ -36,11 +38,12 @@
                         <label class="col-form-label" for="password">Password</label>
                         <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password" name="password" required autofocus />
                     </div>
-                    <button class="btn btn-lg btn-dark btn-block" type="submit">Register</button>
+                    <button class="btn btn-lg btn-secondary btn-block" type="submit">Register</button>
                     <div class="margin-top20 text-center">Already have an account?<a class="text-dark" th:href="@{/login}"> Log In</a></div>
                 </form>
             </div>
         </div>
     </div>
+</section>
 </body>
 </html>

@@ -15,9 +15,12 @@ public class Cart {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    /*@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private Set<Item> items;
+    private Set<Item> items;*/
+
+    @OneToMany(mappedBy = "cart")
+    private Set<CartItems> cartItems;
 
     public Cart() {
 
@@ -39,11 +42,25 @@ public class Cart {
         this.user = user;
     }
 
-    public Set<Item> getItems() {
+    public Set<CartItems> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(Set<CartItems> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    /*public Set<Item> getItems() {
         return items;
     }
 
     public void setItems(Set<Item> items) {
         this.items = items;
     }
+//TODO add item
+    public void addItem(Item item) {
+        item.setQuantity(1);
+        items.add(item);
+    }*/
+
 }

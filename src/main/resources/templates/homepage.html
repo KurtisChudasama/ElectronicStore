@@ -7,12 +7,12 @@
     <title>HomePage</title>
 </head>
 <body>
+<section layout:fragment="content">
     <div class="container">
         <form th:action="@{/homepage}">
             <h2>Hi <span th:utext="${username}"></span>, welcome to the homepage!</h2>
         </form>
-        <br/>
-        <a class="dropdown-item" th:href="@{/logout}">Log Out</a>
     </div>
+</section>
 </body>
 </html>

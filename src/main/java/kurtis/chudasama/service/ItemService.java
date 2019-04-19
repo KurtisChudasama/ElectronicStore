@@ -18,6 +18,11 @@ public class ItemService implements IItemService{
         return itemRepository.findById(id);
     }
 
+    @Override
+    public ArrayList<Item> findItemsByName(String itemName) {
+        return itemRepository.findByItemNameLike("%" + itemName + "%");
+    }
+
     /*@Override
     public Item findByCartId(int cartId) {
         return itemRepository.findByCartId(cartId);

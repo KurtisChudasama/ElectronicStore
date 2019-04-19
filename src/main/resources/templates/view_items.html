@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>View Items</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <form action="/homepage/viewitems" class="form-inline">
+        <div class="form-group mb-2">
+            <input type="text" class="form-control" name="itemName" placeholder="Search Items" />
+            <input type="submit" value="Search"  class="btn btn-secondary"/>
+        </div>
+    </form>
+    <div class="alert alert-success" id="alert-item-added-success" role="alert" th:if="${successMessage}">
+        Item added to cart!
+        <script>
+            $("#alert-item-added-success").fadeTo(5000, 500).slideUp(500, function(){
+                $("#alert-item-added-success").slideUp(500);
+            });
+        </script>
+    </div>
+    <div style="width: 100%; overflow: hidden; margin-top: 5rem;  padding-right: 10%; padding-left: 10%;">
+        <div class="card text-white bg-primary mb-3 mx-auto " style="width: 600px; float: left;">
+            <div class="card-header"><h2>All Items</h2></div>
+            <div class="card card-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Stock</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item:${items}">
+                        <td th:text="${item.itemName}"></td>
+                        <td th:text="${item.category}"></td>
+                        <!--<td th:text="${item.stock}"></td>-->
+                        <div th:if="${item.stock} &lt; 1">
+                            <td><span class="badge badge-danger">Out of Stock   </span></td>
+                            <td sec:authorize="hasAuthority('ADMIN')"><a  th:href="@{/homepage/updatestock/{id}(id=${item.id})}"class="btn btn-secondary" >Update Stock </a></td>
+                            <!--<td sec:authorize="hasAuthority('CUSTOMER')"><span class="badge badge-danger">Out of Stock   </span></td>-->
+                        </div>
+                        <div th:if="${item.stock} &gt; 0">
+                            <td th:text="${item.stock}"></td>
+                            <td sec:authorize="hasAuthority('ADMIN')"><a  th:href="@{/homepage/updatestock/{id}(id=${item.id})}"class="btn btn-secondary" >Update Stock </a></td>
+                            <td sec:authorize="hasAuthority('CUSTOMER')"><a  th:href="@{/homepage/addtocart/{id}(id=${item.id})}"class="btn btn-secondary" >Add to Cart </a></td>
+                        </div>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

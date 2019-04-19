@@ -12,9 +12,9 @@ public interface IItemService {
 
     Item findByOrderId(int orderId);
 
-    ArrayList<Item> findItemsByCartId(int cartId);
+    ArrayList<Item> findItemsByCartId(int cartId);*/
 
-    ArrayList<Item> findItemsByOrderId(int orderId);*/
+    ArrayList<Item> findItemsByName(String itemName);
 
     void saveItem(Item item);
 }

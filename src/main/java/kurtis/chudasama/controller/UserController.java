@@ -1,6 +1,8 @@
 package kurtis.chudasama.controller;
 
+import kurtis.chudasama.entity.Cart;
 import kurtis.chudasama.entity.User;
+import kurtis.chudasama.service.CartService;
 import kurtis.chudasama.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CartService cartService;
 
     @RequestMapping(value = {"/"}, method=RequestMethod.GET)
     public ModelAndView index() {
@@ -63,6 +68,10 @@ public class UserController {
         }
         else {
             userService.saveCustomer(user);
+
+            Cart cart = new Cart();
+            cart.setUser(user);
+            cartService.saveCart(cart);
 
             String successMessage = "";
             model.addObject("successMessage", successMessage);

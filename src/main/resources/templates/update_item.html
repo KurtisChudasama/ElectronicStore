@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Item</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="card text-white bg-primary mb-3 mx-auto" style="max-width: 55rem; margin-top: 6rem;">
+        <div class="card-header">
+            <h2>Update Item</h2>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form th:action="@{/homepage/updatestock}" method="POST" th:object="${item}">
+                    <input type="hidden" name="_method" value="PUT"/>
+                    <input type="hidden" name="id" th:value="${item.id}"/>
+                    <h3>Item Name: <b><span th:utext="${item.itemName}"></span></b></h3>
+                    <br/>
+                    <h5>Item Category: <b><span th:utext="${item.category}"></span></b></h5>
+                    <br/>
+                    <h5>Current Stock: <b><span th:utext="${item.stock}"></span></b></h5>
+                    <br/>
+                    <div class="alert alert-info" id="alert-offset-success" role="alert" th:if="${successMessage}">
+                        Stock level updated!
+                        <script>
+                            $("#alert-offset-success").fadeTo(5000, 500).slideUp(500, function(){
+                                $("#alert-offset-success").slideUp(500);
+                            });
+                        </script>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock" class="col-form-label">Update Stock</label>
+                        <input type="number" class="form-control" th:field="*{stock}" name="stock" id="stock" min="0">
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-secondary btn-block">Update Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
