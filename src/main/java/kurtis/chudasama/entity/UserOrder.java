@@ -11,6 +11,9 @@ public class UserOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(name = "total")
+    private double total;
+
     @ManyToOne
     @JoinColumn(name = "user_id", updatable = false)
     private User user;
@@ -23,7 +26,8 @@ public class UserOrder {
 
     }
 
-    public UserOrder(User user, Set<Item> items) {
+    public UserOrder(double total, User user, Set<Item> items) {
+        this.total = total;
         this.user = user;
         this.items = items;
     }
@@ -34,6 +38,14 @@ public class UserOrder {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public User getUser() {

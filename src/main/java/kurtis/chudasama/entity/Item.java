@@ -17,6 +17,9 @@ public class Item {
     @Column(name = "category")
     private String category;
 
+    @Column(name= "price")
+    private double price;
+
     @Column(name = "stock")
     private int stock;
 
@@ -30,9 +33,10 @@ public class Item {
 
     }
 
-    public Item(String itemName, String category) {
+    public Item(String itemName, String category, double price) {
         this.itemName = itemName;
         this.category = category;
+        this.price = price;
     }
 
     public int getId() {
@@ -49,6 +53,14 @@ public class Item {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     /*public Set<Cart> getCarts() {

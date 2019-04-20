@@ -31,6 +31,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Category</th>
+                        <th>Price</th>
                         <th>Stock</th>
                     </tr>
                     </thead>
@@ -38,6 +39,7 @@
                     <tr th:each="item:${items}">
                         <td th:text="${item.itemName}"></td>
                         <td th:text="${item.category}"></td>
+                        <td th:text="${item.price}"></td>
                         <!--<td th:text="${item.stock}"></td>-->
                         <div th:if="${item.stock} &lt; 1">
                             <td><span class="badge badge-danger">Out of Stock   </span></td>

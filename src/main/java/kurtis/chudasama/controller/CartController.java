@@ -46,17 +46,6 @@ public class CartController {
         Cart cart = cartService.findByUserId(user.getId());
         Item item = itemService.findById(id);
 
-        /*CartItems cartItemsExist = cartItemsService.findByItemId(item.getId());
-
-        if(cartItemsExist == null) {
-            CartItems cartItems = new CartItems(cart, item, 1);
-            cartItemsService.saveCartItems(cartItems);
-        }
-        else {
-            cartItemsExist.setQuantity(+1);
-            cartItemsService.saveCartItems(cartItemsExist);
-        }*/
-
         ArrayList<CartItems> cart_items = new ArrayList<CartItems>();
         cart_items.addAll(cart.getCartItems());
         boolean exist = true;
@@ -107,8 +96,17 @@ public class CartController {
         ArrayList<CartItems> cart_items = new ArrayList<CartItems>();
         cart_items.addAll(cart.getCartItems());
 
+        double total = 0;
+
+        for (int i = 0; i < cart_items.size(); i++) {
+            CartItems cartItem = cart_items.get(i);
+            Item item = itemService.findById(cartItem.getItem().getId());
+            total = total + (item.getPrice() * cartItem.getQuantity());
+        }
+
         model.addObject("cart", cart);
         model.addObject("cartitems", cart_items);
+        model.addObject("total", total);
         model.setViewName("view_cart");
 
         return model;

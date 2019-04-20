@@ -17,6 +17,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Category</th>
+                        <th>Price</th>
                         <th>Quantity</th>
                     </tr>
                     </thead>
@@ -24,12 +25,18 @@
                     <tr th:each="cartitem:${cartitems}">
                         <td th:text="${cartitem.item.itemName}"></td>
                         <td th:text="${cartitem.item.category}"></td>
+                        <td th:text="${cartitem.item.price}"></td>
                         <td th:text="${cartitem.quantity}"></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <h2>Your Cart Total is: €<span th:utext="${total}"></span></h2>
+        <br/>
+        <a  th:href="@{/homepage/order/{id}(id=${cart.id})}"class="btn btn-secondary" >Order </a>
     </div>
 </section>
 </body>

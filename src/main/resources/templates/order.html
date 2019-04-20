@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="card text-white bg-primary mb-3 mx-auto" style="max-width: 55rem; margin-top: 6rem;">
+        <div class="card-header">
+            <h2>Your Order</h2>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <h2>Total payment: €<span th:utext="${total}"></span></h2>
+                <form th:action="@{/homepage/order}" method="POST" th:object="${userOrder}">
+                    <input type="hidden" name="total" th:value="${total}"/>
+                    <!--<input type="hidden" name="items" th:value="${items}"/>-->
+                    <div class="alert alert-success" id="success-alert-order" role="alert" th:if="${successMessage}">
+                        Order successful!
+                        <script>
+                            $("#success-alert-order").fadeTo(2000, 500).slideUp(500, function(){
+                                $("#success-alert-order").slideUp(500);
+                            });
+                        </script>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-secondary btn-block">Pay Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
