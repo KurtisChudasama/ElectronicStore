@@ -17,12 +17,19 @@
                 <h2>Total payment: €<span th:utext="${total}"></span></h2>
                 <form th:action="@{/homepage/order}" method="POST" th:object="${userOrder}">
                     <input type="hidden" name="total" th:value="${total}"/>
-                    <!--<input type="hidden" name="items" th:value="${items}"/>-->
                     <div class="alert alert-success" id="success-alert-order" role="alert" th:if="${successMessage}">
                         Order successful!
                         <script>
                             $("#success-alert-order").fadeTo(2000, 500).slideUp(500, function(){
                                 $("#success-alert-order").slideUp(500);
+                            });
+                        </script>
+                    </div>
+                    <div class="alert alert-danger" id="error-alert-order" role="alert" th:if="${errorMessage}">
+                        Not enough stock!
+                        <script>
+                            $("#error-alert-order").fadeTo(2000, 500).slideUp(500, function(){
+                                $("#error-alert-order").slideUp(500);
                             });
                         </script>
                     </div>

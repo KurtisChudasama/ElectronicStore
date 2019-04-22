@@ -78,7 +78,17 @@ public class OrderController {
             CartItems cartItem = cart_items.get(i);
             Item item = itemService.findById(cartItem.getItem().getId());
 
-            items.add(item);
+            if (cartItem.getQuantity() > item.getStock()) {
+
+                String errorMessage = "";
+                model.addObject("errorMessage", errorMessage);
+                model.setViewName("order");
+
+                return model;
+            }
+            else {
+                items.add(item);
+            }
         }
 
         UserOrder order = new UserOrder(total, user, items);
