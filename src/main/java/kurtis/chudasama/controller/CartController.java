@@ -96,13 +96,7 @@ public class CartController {
         ArrayList<CartItems> cart_items = new ArrayList<CartItems>();
         cart_items.addAll(cart.getCartItems());
 
-        double total = 0;
-
-        for (int i = 0; i < cart_items.size(); i++) {
-            CartItems cartItem = cart_items.get(i);
-            Item item = itemService.findById(cartItem.getItem().getId());
-            total = total + (item.getPrice() * cartItem.getQuantity());
-        }
+        double total = cart.calculateTotal();
 
         model.addObject("cart", cart);
         model.addObject("cartitems", cart_items);

@@ -23,26 +23,6 @@ public class ItemService implements IItemService{
         return itemRepository.findByItemNameLike("%" + itemName + "%");
     }
 
-    /*@Override
-    public Item findByCartId(int cartId) {
-        return itemRepository.findByCartId(cartId);
-    }
-
-    @Override
-    public Item findByOrderId(int orderId) {
-        return itemRepository.findByOrderId(orderId);
-    }
-
-    @Override
-    public ArrayList<Item> findItemsByCartId(int cartId) {
-        return itemRepository.findItemsByCartId(cartId);
-    }
-
-    @Override
-    public ArrayList<Item> findItemsByOrderId(int orderId) {
-        return itemRepository.findItemsByOrderId(orderId);
-    }*/
-
     @Override
     public void saveItem(Item item) {
         itemRepository.save(item);

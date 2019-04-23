@@ -2,9 +2,11 @@ package kurtis.chudasama.service;
 
 import kurtis.chudasama.entity.CartItems;
 
+import java.util.List;
+
 public interface ICartItemsService {
 
-    CartItems findByCartId(int cartId);
+    List<CartItems> findByCartId(int cartId);
 
     CartItems findByItemId(int itemId);
 

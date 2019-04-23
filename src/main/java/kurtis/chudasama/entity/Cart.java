@@ -1,6 +1,7 @@
 package kurtis.chudasama.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Set;
 
 @Entity
@@ -14,10 +15,6 @@ public class Cart {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    /*@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private Set<Item> items;*/
 
     @OneToMany(mappedBy = "cart")
     private Set<CartItems> cartItems;
@@ -50,17 +47,16 @@ public class Cart {
         this.cartItems = cartItems;
     }
 
-    /*public Set<Item> getItems() {
-        return items;
-    }
+    public double calculateTotal() {
+        double total = 0;
+        ArrayList<CartItems> cart_items = new ArrayList<CartItems>();
+        cart_items.addAll(this.getCartItems());
 
-    public void setItems(Set<Item> items) {
-        this.items = items;
-    }
-//TODO add item
-    public void addItem(Item item) {
-        item.setQuantity(1);
-        items.add(item);
-    }*/
+        for (int i = 0; i < cart_items.size(); i++) {
+            Item item = cart_items.get(i).getItem();
+            total += item.getPrice() * cart_items.get(i).getQuantity();
+        }
 
+        return total;
+    }
 }

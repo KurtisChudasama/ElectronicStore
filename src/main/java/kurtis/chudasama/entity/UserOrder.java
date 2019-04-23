@@ -63,4 +63,9 @@ public class UserOrder {
     public void setItems(Set<Item> items) {
         this.items = items;
     }
+
+    public boolean pay(PaymentMethod method, Cart cart) {
+        double totalCost = cart.calculateTotal();
+        return method.pay(totalCost);
+    }
 }

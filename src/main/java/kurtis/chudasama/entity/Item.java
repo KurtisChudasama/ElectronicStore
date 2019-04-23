@@ -63,14 +63,6 @@ public class Item {
         this.price = price;
     }
 
-    /*public Set<Cart> getCarts() {
-        return carts;
-    }
-
-    public void setCarts(Set<Cart> carts) {
-        this.carts = carts;
-    }*/
-
     public Set<CartItems> getCartItems() {
         return cartItems;
     }

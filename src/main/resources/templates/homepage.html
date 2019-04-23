@@ -12,6 +12,22 @@
         <form th:action="@{/homepage}">
             <h2>Hi <span th:utext="${username}"></span>, welcome to the homepage!</h2>
         </form>
+        <div class="alert alert-success" id="mastercard-success" role="alert" th:if="${mastercardSuccess}">
+            Mastercard payment received. Order successful!
+            <script>
+                $("#mastercard-success").fadeTo(5000, 500).slideUp(500, function(){
+                    $("#mastercard-success").slideUp(500);
+                });
+            </script>
+        </div>
+        <div class="alert alert-success" id="visa-success" role="alert" th:if="${visaSuccess}">
+            Visa payment received. Order successful!
+            <script>
+                $("#visa-success").fadeTo(5000, 500).slideUp(500, function(){
+                    $("#visa-success").slideUp(500);
+                });
+            </script>
+        </div>
     </div>
 </section>
 </body>

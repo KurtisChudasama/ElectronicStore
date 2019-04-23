@@ -5,6 +5,8 @@ import kurtis.chudasama.repository.CartItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("cartItemsService")
 public class CartItemsService implements ICartItemsService {
 
@@ -12,7 +14,7 @@ public class CartItemsService implements ICartItemsService {
     private CartItemRepository cartItemRepository;
 
     @Override
-    public CartItems findByCartId(int cartId) {
+    public List<CartItems> findByCartId(int cartId) {
         return cartItemRepository.findByCartId(cartId);
     }
 
@@ -24,5 +26,9 @@ public class CartItemsService implements ICartItemsService {
     @Override
     public void saveCartItems(CartItems cartItems) {
         cartItemRepository.save(cartItems);
+    }
+
+    public void emptyCart(List<CartItems> items) {
+        cartItemRepository.deleteAll(items);
     }
 }
