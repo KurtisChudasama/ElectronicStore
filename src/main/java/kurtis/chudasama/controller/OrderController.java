@@ -35,6 +35,8 @@ public class OrderController {
     @Autowired
     private CartItemsService cartItemsService;
 
+    PurchaseServiceFacadeImpl purchaseServiceFacade;
+
     @GetMapping("/homepage/order/{id}")
     public ModelAndView order(@PathVariable("id") int id) {
         ModelAndView model = new ModelAndView();
@@ -69,65 +71,62 @@ public class OrderController {
         User user = userService.findUserByUsername(auth.getName());
 
         Cart cart = cartService.findByUserId(user.getId());
+        Set<Item> items = new HashSet<>();
+
         ArrayList<CartItems> cart_items = new ArrayList<CartItems>();
         cart_items.addAll(cart.getCartItems());
 
-        Set<Item> items = new HashSet<>();
+        purchaseServiceFacade = new PurchaseServiceFacadeImpl();
 
-        for (int i = 0; i < cart_items.size(); i++) {
-            CartItems cartItem = cart_items.get(i);
-            Item item = itemService.findById(cartItem.getItem().getId());
+        if (purchaseServiceFacade.placeOrder(cart_items)) {
 
-            if (cartItem.getQuantity() > item.getStock()) {
+            items.addAll(items);
 
-                String errorMessage = "";
-                model.addObject("errorMessage", errorMessage);
-                model.setViewName("order");
-                model.addObject("total", total);
+            UserOrder order = new UserOrder(total, user, items);
 
-                return model;
-            } else {
-                items.add(item);
+            if (request.getParameter("payment_method").equals("Visa")) {
+                Visa visa = new Visa(request.getParameter("name"), request.getParameter("cardNumber"), request.getParameter("expires"));
+
+                if (order.pay(visa, cart)){
+                    orderService.saveOrder(order);
+                    cartItemsService.emptyCart(cartItemsService.findByCartId(cart.getId()));
+
+                    String visaSuccess = "";
+                    model.addObject("visaSuccess", visaSuccess);
+                    model.setViewName("homepage");
+                }
+                else {
+                    String visaError = "";
+                    model.addObject("total", total);
+                    model.addObject("visaError", visaError);
+                    model.setViewName("order");
+                }
+            } else if (request.getParameter("payment_method").equals("Mastercard")) {
+                MasterCard mastercard = new MasterCard(request.getParameter("name"), request.getParameter("cardNumber"), request.getParameter("expires"));
+
+                if (order.pay(mastercard, cart)) {
+                    orderService.saveOrder(order);
+                    cartItemsService.emptyCart(cartItemsService.findByCartId(cart.getId()));
+
+                    String mastercardSuccess = "";
+                    model.addObject("mastercardSuccess", mastercardSuccess);
+                    model.setViewName("homepage");
+                }
+                else {
+                    String mastercardError = "";
+                    model.addObject("total", total);
+                    model.addObject("mastercardError", mastercardError);
+                    model.setViewName("order");
+                }
             }
         }
-
-        UserOrder order = new UserOrder(total, user, items);
-
-        if (request.getParameter("payment_method").equals("Visa")) {
-            Visa visa = new Visa(request.getParameter("name"), request.getParameter("cardNumber"), request.getParameter("expires"));
-
-            if (order.pay(visa, cart)){
-                orderService.saveOrder(order);
-                cartItemsService.emptyCart(cartItemsService.findByCartId(cart.getId()));
-
-                String visaSuccess = "";
-                model.addObject("visaSuccess", visaSuccess);
-                model.setViewName("homepage");
-            }
-            else {
-                String visaError = "";
-                model.addObject("total", total);
-                model.addObject("visaError", visaError);
-                model.setViewName("order");
-            }
-        } else if (request.getParameter("payment_method").equals("Mastercard")) {
-            MasterCard mastercard = new MasterCard(request.getParameter("name"), request.getParameter("cardNumber"), request.getParameter("expires"));
-
-            if (order.pay(mastercard, cart)) {
-                orderService.saveOrder(order);
-                cartItemsService.emptyCart(cartItemsService.findByCartId(cart.getId()));
-
-                String mastercardSuccess = "";
-                model.addObject("mastercardSuccess", mastercardSuccess);
-                model.setViewName("homepage");
-            }
-            else {
-                String mastercardError = "";
-                model.addObject("total", total);
-                model.addObject("mastercardError", mastercardError);
-                model.setViewName("order");
-            }
+        else {
+            String errorMessage = "";
+            model.addObject("errorMessage", errorMessage);
+            model.setViewName("order");
+            model.addObject("total", total);
         }
+
         return model;
     }
 }
