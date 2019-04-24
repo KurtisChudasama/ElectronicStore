@@ -90,6 +90,7 @@ public class OrderController {
                 if (order.pay(visa, cart)){
                     orderService.saveOrder(order);
                     cartItemsService.emptyCart(cartItemsService.findByCartId(cart.getId()));
+                    itemService.updateStock(cart_items);
 
                     String visaSuccess = "";
                     model.addObject("visaSuccess", visaSuccess);
@@ -107,6 +108,7 @@ public class OrderController {
                 if (order.pay(mastercard, cart)) {
                     orderService.saveOrder(order);
                     cartItemsService.emptyCart(cartItemsService.findByCartId(cart.getId()));
+                    itemService.updateStock(cart_items);
 
                     String mastercardSuccess = "";
                     model.addObject("mastercardSuccess", mastercardSuccess);

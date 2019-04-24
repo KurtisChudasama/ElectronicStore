@@ -1,5 +1,6 @@
 package kurtis.chudasama.entity;
 
+import kurtis.chudasama.service.ItemService;
 import kurtis.chudasama.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 
