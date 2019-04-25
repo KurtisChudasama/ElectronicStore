@@ -31,6 +31,10 @@ public class User {
     @JoinColumn(name = "user_id")
     private Set<UserOrder> orders;
 
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private Set<Rating> rating;
+
     public int getId() {
         return id;
     }
@@ -85,5 +89,13 @@ public class User {
 
     public void setOrders(Set<UserOrder> orders) {
         this.orders = orders;
+    }
+
+    public Set<Rating> getRating() {
+        return rating;
+    }
+
+    public void setRating(Set<Rating> rating) {
+        this.rating = rating;
     }
 }

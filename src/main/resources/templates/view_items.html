@@ -38,6 +38,7 @@
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Manufacturer</th>
                         <th>Category</th>
                         <th>Price</th>
                         <th>Stock</th>
@@ -46,13 +47,12 @@
                     <tbody>
                     <tr th:each="item:${items}">
                         <td th:text="${item.itemName}"></td>
+                        <td th:text="${item.manufacturer}"></td>
                         <td th:text="${item.category}"></td>
                         <td th:text="${item.price}"></td>
-                        <!--<td th:text="${item.stock}"></td>-->
                         <div th:if="${item.stock} &lt; 1">
                             <td><span class="badge badge-danger">Out of Stock   </span></td>
                             <td sec:authorize="hasAuthority('ADMIN')"><a  th:href="@{/homepage/updatestock/{id}(id=${item.id})}"class="btn btn-secondary" >Update Stock </a></td>
-                            <!--<td sec:authorize="hasAuthority('CUSTOMER')"><span class="badge badge-danger">Out of Stock   </span></td>-->
                         </div>
                         <div th:if="${item.stock} &gt; 0">
                             <td th:text="${item.stock}"></td>
@@ -63,6 +63,7 @@
                             <input type="hidden" name="_method" value="DELETE"/>
                             <td sec:authorize="hasAuthority('ADMIN')"><button type="submit" class="btn btn-secondary">Delete Item </button></td>
                         </form>
+                        <td sec:authorize="hasAuthority('CUSTOMER')"><a  th:href="@{/homepage/itempage/{id}(id=${item.id})}"class="btn btn-secondary" >View Item </a></td>
                     </tr>
                     </tbody>
                 </table>

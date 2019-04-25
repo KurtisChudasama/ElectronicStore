@@ -14,6 +14,9 @@ public class Item {
     @Column(name = "item_name")
     private String itemName;
 
+    @Column(name = "manufacturer")
+    private String manufacturer;
+
     @Column(name = "category")
     private String category;
 
@@ -29,12 +32,17 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private Set<CartItems> cartItems;
 
+    @OneToMany
+    @JoinColumn(name = "item_id")
+    private Set<Rating> rating;
+
     public Item() {
 
     }
 
-    public Item(String itemName, String category, double price) {
+    public Item(String itemName, String manufacturer, String category, double price) {
         this.itemName = itemName;
+        this.manufacturer = manufacturer;
         this.category = category;
         this.price = price;
     }
@@ -95,4 +103,19 @@ public class Item {
         this.stock = stock;
     }
 
+    public Set<Rating> getRating() {
+        return rating;
+    }
+
+    public void setRating(Set<Rating> rating) {
+        this.rating = rating;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
 }

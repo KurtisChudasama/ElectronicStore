@@ -16,6 +16,7 @@
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Manufacturer</th>
                         <th>Category</th>
                         <th>Price</th>
                         <th>Quantity</th>
@@ -24,6 +25,7 @@
                     <tbody>
                     <tr th:each="cartitem:${cartitems}">
                         <td th:text="${cartitem.item.itemName}"></td>
+                        <td th:text="${cartitem.item.manufacturer}"></td>
                         <td th:text="${cartitem.item.category}"></td>
                         <td th:text="${cartitem.item.price}"></td>
                         <td th:text="${cartitem.quantity}"></td>

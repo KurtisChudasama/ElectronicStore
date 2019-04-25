@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Item Page</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div style="width: 100%; overflow: hidden; margin-top: 5rem;  padding-right: 10%; padding-left: 10%;">
+        <div class="card text-white bg-primary mb-3 mx-auto" style="width: 600px; float: left;">
+            <div class="card-header">
+                <h2><b><span th:utext="${item.itemName}"></span></b></h2>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <h5>Manufacturer: <b><span th:utext="${item.manufacturer}"></span></b></h5>
+                    <br/>
+                    <h5>Category: <b><span th:utext="${item.category}"></span></b></h5>
+                    <br/>
+                    <h5>Price: €<b><span th:utext="${item.price}"></span></b></h5>
+                    <br/>
+                    <form th:action="@{/homepage/rating}" method="POST" th:object="${rating}">
+                        <input type="hidden" name="id" th:value="${item.id}"/>
+                        <div class="alert alert-success" id="alert-rating-success" role="alert" th:if="${ratingSuccess}">
+                            Review successful!
+                            <script>
+                                $("#alert-rating-success").fadeTo(2000, 500).slideUp(500, function(){
+                                    $("#alert-rating-success").slideUp(500);
+                                });
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="rate">Rating (1-5): </label>
+                            <select th:field="*{rate}" class="form-control" id="rate" name="rate">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="review">Review: </label>
+                            <input type="text" th:field="*{review}" class="form-control" id="review" placeholder="Item review" required autofocus />
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-secondary btn-block">Add Review </button>
+                        <div class="alert alert-danger" id="alert-rating-error" role="alert" th:if="${errorRatingExists}">
+                            You have already reviewed this item!
+                            <script>
+                                $("#alert-rating-error").fadeTo(2000, 500).slideUp(500, function(){
+                                    $("#alert-rating-error").slideUp(500);
+                                });
+                            </script>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card text-white bg-primary mb-3 mx-auto " style="width: 600px; float: right">
+            <div class="card-header">
+                <h2><b>Reviews</b></h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="rating:${ratings}">
+                        <td th:text="${rating.user.username}"></td>
+                        <td th:text="${rating.rate}"></td>
+                        <td th:text="${rating.review}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
