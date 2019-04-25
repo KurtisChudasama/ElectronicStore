@@ -2,6 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/main_layout}">
+
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css"
+      rel="stylesheet" type="text/css">
+<link rel="stylesheet"
+      href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet"
+      href="https://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href="https://www.jqueryscript.net/demo/jQuery-Plugin-For-Sortable-Bootstrap-Tables-Bootstrap-Sortable/Contents/bootstrap-sortable.css"
+        rel="stylesheet" type="text/css">
 <head>
     <meta charset="UTF-8">
     <title>View Items</title>
@@ -31,17 +40,17 @@
         </script>
     </div>
     <div style="width: 100%; overflow: hidden; margin-top: 5rem;  padding-right: 10%; padding-left: 10%;">
-        <div class="card text-white bg-primary mb-3 mx-auto " style="width: 800px; float: left;">
+        <div class="card text-white bg-primary mb-3 mx-auto " style="width: 1000px; float: left;">
             <div class="card-header"><h2>All Items</h2></div>
             <div class="card card-body">
-                <table class="table table-hover">
+                <table class="table table-hover sortable" >
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Manufacturer</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Stock</th>
+                        <th>Name <i class="fas fa-sort"></i></th>
+                        <th>Manufacturer <i class="fas fa-sort"></i></th>
+                        <th>Category <i class="fas fa-sort"></i></th>
+                        <th>Price €<i class="fas fa-sort"></i></th>
+                        <th>Stock <i class="fas fa-sort"></i></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -67,6 +76,8 @@
                     </tr>
                     </tbody>
                 </table>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+                <script src="https://www.jqueryscript.net/demo/jQuery-Plugin-For-Sortable-Bootstrap-Tables-Bootstrap-Sortable/Scripts/bootstrap-sortable.js"></script>
             </div>
         </div>
     </div>
