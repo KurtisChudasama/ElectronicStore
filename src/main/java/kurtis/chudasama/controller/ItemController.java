@@ -107,4 +107,22 @@ public class ItemController {
 
         return model;
     }
+
+    @DeleteMapping("/homepage/deleteitem/{id}")
+    public ModelAndView deleteItem(@PathVariable("id") int id, @RequestParam(defaultValue = "") String itemName) {
+        ModelAndView model = new ModelAndView();
+        Item item = itemService.findById(id);
+
+        itemService.deleteItem(item);
+
+        ArrayList<Item> items = itemService.findItemsByName(itemName);
+
+        model.addObject("items", items);
+
+        String deleteMessage = "";
+        model.addObject("deleteMessage", deleteMessage);
+        model.setViewName("view_items");
+
+        return model;
+    }
 }

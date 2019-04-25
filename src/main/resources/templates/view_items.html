@@ -22,8 +22,16 @@
             });
         </script>
     </div>
+    <div class="alert alert-success" id="alert-item-deleted" role="alert" th:if="${deleteMessage}">
+        Item successfully deleted!
+        <script>
+            $("#alert-item-deleted").fadeTo(5000, 500).slideUp(500, function(){
+                $("#alert-item-deleted").slideUp(500);
+            });
+        </script>
+    </div>
     <div style="width: 100%; overflow: hidden; margin-top: 5rem;  padding-right: 10%; padding-left: 10%;">
-        <div class="card text-white bg-primary mb-3 mx-auto " style="width: 600px; float: left;">
+        <div class="card text-white bg-primary mb-3 mx-auto " style="width: 800px; float: left;">
             <div class="card-header"><h2>All Items</h2></div>
             <div class="card card-body">
                 <table class="table table-hover">
@@ -51,6 +59,10 @@
                             <td sec:authorize="hasAuthority('ADMIN')"><a  th:href="@{/homepage/updatestock/{id}(id=${item.id})}"class="btn btn-secondary" >Update Stock </a></td>
                             <td sec:authorize="hasAuthority('CUSTOMER')"><a  th:href="@{/homepage/addtocart/{id}(id=${item.id})}"class="btn btn-secondary" >Add to Cart </a></td>
                         </div>
+                        <form th:action="@{/homepage/deleteitem/{id}(id=${item.id})}" method="POST" th:object="${item}">
+                            <input type="hidden" name="_method" value="DELETE"/>
+                            <td sec:authorize="hasAuthority('ADMIN')"><button type="submit" class="btn btn-secondary">Delete Item </button></td>
+                        </form>
                     </tr>
                     </tbody>
                 </table>
