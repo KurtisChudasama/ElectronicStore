@@ -1,6 +1,10 @@
 package kurtis.chudasama.entity;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 public class MasterCard implements PaymentMethod {
 
@@ -41,7 +45,35 @@ public class MasterCard implements PaymentMethod {
 
     @Override
     public boolean pay(double amount) {
-        if (this.cardNumber.length() != 15) {
+
+        if (checkDate(this.expires) && checkCardNumber(this.cardNumber)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean checkCardNumber(String cardNumber) {
+
+        if (cardNumber.length() != 15) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    @Override
+    public boolean checkDate(String expiry) {
+        ZoneId zonedId = ZoneId.of("GMT");
+        LocalDate today = LocalDate.now(zonedId);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        LocalDate expiryDate = LocalDate.parse(expiry, formatter);
+
+        if (expiryDate.isBefore(today)) {
             return false;
         }
         else {

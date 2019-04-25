@@ -8,13 +8,9 @@ public interface IItemService {
 
     Item findById(int id);
 
-    /*Item findByCartId(int cartId);
-
-    Item findByOrderId(int orderId);
-
-    ArrayList<Item> findItemsByCartId(int cartId);*/
-
     ArrayList<Item> findItemsByName(String itemName);
 
     void saveItem(Item item);
+
+    void deleteItem(Item item);
 }

@@ -40,4 +40,11 @@ public class ItemService implements IItemService{
             this.saveItem(item);
         }
     }
+
+    @Override
+    public void deleteItem(Item item) {
+
+        itemRepository.delete(item);
+
+    }
 }
