@@ -14,7 +14,7 @@
         </div>
         <div class="card-body">
             <div class="container">
-                <h2>Total payment: €<span th:utext="${total}"></span></h2>
+                <h2>Total payment: € <span th:utext="${total}"></span></h2>
                 <form th:action="@{/homepage/order}" method="POST" th:object="${userOrder}">
                     <input type="hidden" name="total" th:value="${total}"/>
                     <div class="alert alert-danger" id="error-alert-order" role="alert" th:if="${errorMessage}">
@@ -24,6 +24,10 @@
                                 $("#error-alert-order").slideUp(500);
                             });
                         </script>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="address">Delivery Address: </label>
+                        <input type="text" th:field="*{address}" class="form-control" id="address" placeholder="Address" required autofocus />
                     </div>
                     <div class="form-group">
                         <label class="col-form-label" for="payment_method">Select Payment Method: </label>

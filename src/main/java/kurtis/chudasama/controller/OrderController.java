@@ -61,6 +61,7 @@ public class OrderController {
         model.addObject("cart", cart);
         model.addObject("items", items);
         model.addObject("total", total);
+        model.addObject("userOrder", new UserOrder());
         model.setViewName("order");
 
         return model;
@@ -71,6 +72,8 @@ public class OrderController {
         ModelAndView model = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByUsername(auth.getName());
+
+        String address = userOrder.getAddress();
 
         Cart cart = cartService.findByUserId(user.getId());
         Set<Item> items = new HashSet<>();
@@ -84,7 +87,7 @@ public class OrderController {
 
             items.addAll(items);
 
-            UserOrder order = new UserOrder(total, user, items);
+            UserOrder order = new UserOrder(address, total, user, items);
 
             if (request.getParameter("payment_method").equals("Visa")) {
                 Visa visa = new Visa(request.getParameter("name"), request.getParameter("cardNumber"), request.getParameter("expires"));
@@ -102,6 +105,7 @@ public class OrderController {
                     String visaError = "";
                     model.addObject("total", total);
                     model.addObject("visaError", visaError);
+                    model.addObject("address", address);
                     model.setViewName("order");
                 }
             } else if (request.getParameter("payment_method").equals("Mastercard")) {
@@ -120,6 +124,7 @@ public class OrderController {
                     String mastercardError = "";
                     model.addObject("total", total);
                     model.addObject("mastercardError", mastercardError);
+                    model.addObject("address", address);
                     model.setViewName("order");
                 }
             }
@@ -128,6 +133,7 @@ public class OrderController {
             String errorMessage = "";
             model.addObject("errorMessage", errorMessage);
             model.setViewName("order");
+            model.addObject("address", address);
             model.addObject("total", total);
         }
 

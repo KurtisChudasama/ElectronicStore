@@ -20,6 +20,9 @@
                 <li class="nav-item" sec:authorize="hasAuthority('CUSTOMER')">
                     <a class="nav-link" href="/homepage/viewitems">Products</a>
                 </li>
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link" href="/homepage/viewusers">Users</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account </a>
                     <div class="dropdown-menu" x-placement="bottom-start">

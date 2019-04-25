@@ -2,6 +2,8 @@ package kurtis.chudasama.service;
 
 import kurtis.chudasama.entity.User;
 
+import java.util.ArrayList;
+
 public interface IUserService {
 
     User findUserById(int id);
@@ -11,4 +13,6 @@ public interface IUserService {
     void saveCustomer(User user);
 
     void saveAdmin(User user);
+
+    ArrayList<User> findByUsernameLike(String username);
 }

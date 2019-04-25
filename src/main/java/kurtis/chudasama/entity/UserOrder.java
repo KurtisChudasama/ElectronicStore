@@ -11,6 +11,9 @@ public class UserOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(name = "address")
+    private String address;
+
     @Column(name = "total")
     private double total;
 
@@ -26,7 +29,8 @@ public class UserOrder {
 
     }
 
-    public UserOrder(double total, User user, Set<Item> items) {
+    public UserOrder(String address, double total, User user, Set<Item> items) {
+        this.address = address;
         this.total = total;
         this.user = user;
         this.items = items;
@@ -67,5 +71,13 @@ public class UserOrder {
     public boolean pay(PaymentMethod method, Cart cart) {
         double totalCost = cart.calculateTotal();
         return method.pay(totalCost);
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

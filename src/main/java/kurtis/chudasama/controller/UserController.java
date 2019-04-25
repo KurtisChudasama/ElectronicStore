@@ -9,10 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -99,6 +96,27 @@ public class UserController {
     public ModelAndView accessDenied() {
         ModelAndView model = new ModelAndView();
         model.setViewName("errors/access_denied");
+        return model;
+    }
+
+    @GetMapping("/homepage/viewusers")
+    public ModelAndView listUsers(@RequestParam(defaultValue = "") String name) {
+        ModelAndView model = new ModelAndView();
+
+        model.addObject("users", userService.findByUsernameLike(name));
+        model.setViewName("user_list");
+        return model;
+    }
+
+    @GetMapping("/homepage/history/{id}")
+    public ModelAndView orderHistory(@PathVariable("id") int id) {
+        ModelAndView model = new ModelAndView();
+        User user = userService.findUserById(id);
+
+        model.addObject("username", user.getUsername());
+        model.addObject("orders", user.getOrders());
+        model.setViewName("history");
+
         return model;
     }
 }
